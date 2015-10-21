@@ -1,2 +1,0 @@
-# PROP
-Treball PROP - Hidato
