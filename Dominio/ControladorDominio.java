@@ -40,6 +40,10 @@ public class ControladorDominio {
     */
     public void crearUsuario(String n, String c){
         CPersistencia.crearUsuario(n,c);
+        this.usuario = new Usuario(n,c);
+        int auxPuntuacion = this.usuario.getPuntuacionTotal();
+        boolean auxRanking = this.usuario.getApareceRanking();
+        CPersistencia.crearBDUsuario(n, auxPuntuacion, auxRanking);
     }
     
     public boolean nombreExistente(String n){
@@ -50,21 +54,60 @@ public class ControladorDominio {
         return CPersistencia.contrasenaValida(n,c);
     }
     
-    public void escribirBDUsuarios(){
-        CPersistencia.crearBDUsuarios();
-    }
-    
     /* PRE: n es un nombre de usuario válido y c es su contraseña
     
     */
     public void loginUsuario(String n, String c){
-        usuario.setNombre(n);
-        usuario.setContrasena(c);
-        usuario.setPuntuacionTotal(CPersistencia.cargarPuntuacionUsuario(n));
+        this.usuario = new Usuario();
+        this.usuario.setNombre(n);
+        this.usuario.setContrasena(c);
+        this.usuario.setPuntuacionTotal(CPersistencia.cargarPuntuacionUsuario(n));
+        this.usuario.setApareceRanking(CPersistencia.cargarApareceRankingUsuario(n));
     }
     
     public int getPuntuacionUsuario(){
         return usuario.getPuntuacionTotal();
+    }
+    
+    public boolean getApareceRanking(){
+        return this.usuario.getApareceRanking();
+    }
+    
+    /* PRE: el usuario debe estar inicializado.
+    
+    */
+    public void guardarDatosUsuario(){
+        //CPersistencia.guardarDatosUsuario(this.usuario.getNombre());
+    }
+    
+    /* PRE: el usuario debe estar inicializado.
+    
+    */
+    public void borrarUsuario(){
+        CPersistencia.borrarUsuario(this.usuario.getNombre());
+    }
+    
+    /* PRE: el usuario debe estar inicializado.
+    
+    */
+    public void noAparecerRanking(){
+        
+    }
+    
+    public void jugarInvitado(){
+        
+    }
+    
+    public void jugar(){
+        
+    }
+    
+    public void toggleApareceRanking(){
+        this.usuario.toggleApareceRanking();
+        String auxNombre = this.usuario.getNombre();
+        int auxPuntuacion = this.usuario.getPuntuacionTotal();
+        boolean auxRanking = this.usuario.getApareceRanking();
+        CPersistencia.guardarUsuario(auxNombre,auxPuntuacion,auxRanking);
     }
     
 }
