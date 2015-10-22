@@ -76,8 +76,6 @@ public class ControladorPersistencia {
  
             pw.println(n);
             pw.println(c);
-            
-            this.crearBDUsuario(n);
  
         }
         catch (Exception e) {
@@ -144,15 +142,19 @@ public class ControladorPersistencia {
         return solucio;
     }
     
-    public void crearBDUsuario(String n){
+    /* PRE: n es un nombre de usuario válido.
+    
+    */
+    public void crearBDUsuario(String n, int p, boolean b){
         FileWriter fichero = null;
         PrintWriter pw = null;
         try
         {
             fichero = new FileWriter("Persistencia/BD/Usuarios/"+n+".txt",true);
             pw = new PrintWriter(fichero);
- 
-            pw.println(+0);
+            pw.println(p);
+            if(b == true) pw.println("true");
+            else pw.println("false");
  
         }
         catch (Exception e) {
@@ -171,46 +173,9 @@ public class ControladorPersistencia {
         }
     }
     
-    public void crearBDUsuarios(){
-        
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-        
-        try {
-            // Apertura del fichero y creacion de BufferedReader para poder
-            // hacer una lectura comoda (disponer del metodo readLine()).
-            
-            archivo = new File ("Persistencia/BD/BDUsuarios.txt");
-            fr = new FileReader (archivo);
-            br = new BufferedReader(fr);
-            
-            // Lectura del fichero
-            String linea;
-            while((linea=br.readLine())!=null){
-                System.out.println("Usuario: "+ linea +"\n");
-                System.out.println("Contraseña: '"+ br.readLine() +"'\n");
-                System.out.println("@@@@@@@");
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        finally{
-            // En el finally cerramos el fichero, para asegurarnos
-            // que se cierra tanto si todo va bien como si salta
-            // una excepcion.
-            try{                   
-                if( null != fr ){  
-                    fr.close();    
-                }                 
-            }
-            catch (Exception e2){
-                e2.printStackTrace();
-            }
-        }
-    }
+    /* PRE: n es un nombre de usuario válido.
     
+    */
     public int cargarPuntuacionUsuario(String n){
         
         File archivo = null;
@@ -237,7 +202,7 @@ public class ControladorPersistencia {
             // una excepcion.
             try{                   
                 if( null != fr ){  
-                    fr.close();    
+                    fr.close();
                 }                 
             }
             catch (Exception e2){
@@ -246,5 +211,249 @@ public class ControladorPersistencia {
         }
         
         return solucio;
+    }
+    
+    /* PRE: n es un nombre de usuario válido.
+    
+    */
+    public boolean cargarApareceRankingUsuario(String n){
+        
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        boolean solucio = false;
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            archivo = new File ("Persistencia/BD/Usuarios/"+n+".txt");
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
+            
+            // Lectura del fichero
+            br.readLine(); //Leo la puntuacion;
+            String linea = br.readLine();            
+            if (linea.equals("true")) solucio = true;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta
+            // una excepcion.
+            try{                   
+                if( null != fr ){  
+                    fr.close();
+                }                 
+            }
+            catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+        
+        return solucio;
+    }
+    
+    /* PRE: n es un nombre de usuario válido.
+    
+    */
+    public void borrarUsuario(String n){
+        
+        //LEO ARCHIVO = BDUsuarios.txt
+        //ESCRIBO FICHERO = BDUsuarios2.txt
+        
+        //LEO BDUsuarios.txt y ESCRIBO EN BDUsuarios2.txt
+        
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        archivo = new File ("Persistencia/BD/BDUsuarios.txt");
+        
+        FileWriter fichero = null;
+        
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
+            
+            // Lectura del fichero
+            String linea;
+            while(((linea=br.readLine())!=null)){
+                if (n.equals(linea)) {
+                    //Si es l'usuari que busco paso al següent nom d'usuari.
+                    br.readLine();
+                }
+                else{
+                    //Si no, guardo l'usuri a la BD auxiliar.
+                    
+                    PrintWriter pw = null;
+                    try
+                    {
+                        fichero = new FileWriter("Persistencia/BD/BDUsuarios2.txt",true);
+                        pw = new PrintWriter(fichero);
+
+                        pw.println(linea);
+                        linea=br.readLine();
+                        pw.println(linea);
+
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                       try {
+                       // Nuevamente aprovechamos el finally para
+                       // asegurarnos que se cierra el fichero.
+                       if (null != fichero)
+                          fichero.close();
+                       }
+                       catch (Exception e2) {
+                          e2.printStackTrace();
+                       }
+                    }
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta
+            // una excepcion.
+            try{                   
+                if( null != fr ){  
+                    fr.close();    
+                }                 
+            }
+            catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+        
+        // Borro BDUsuarios.txt
+        
+        archivo.delete();
+        
+        //Escric a BDUsuarios.txt el que hi ha a BDUsuarios2.txt
+        
+        archivo = null;
+        fr = null;
+        br = null;
+        archivo = new File ("Persistencia/BD/BDUsuarios2.txt");
+        
+        fichero = null;
+        
+        try {
+            // Apertura del fichero y creacion de BufferedReader para poder
+            // hacer una lectura comoda (disponer del metodo readLine()).
+            fr = new FileReader (archivo);
+            br = new BufferedReader(fr);
+            
+            // Lectura del fichero
+            String linea;
+            while(((linea=br.readLine())!=null)){
+                //Guardo l'usuri a la BD.
+                PrintWriter pw = null;
+                try
+                {
+                    fichero = new FileWriter("Persistencia/BD/BDUsuarios.txt",true);
+                    pw = new PrintWriter(fichero);
+
+                    pw.println(linea);
+                    linea=br.readLine();
+                    pw.println(linea);
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                finally {
+                   try {
+                   // Nuevamente aprovechamos el finally para
+                   // asegurarnos que se cierra el fichero.
+                   if (null != fichero)
+                      fichero.close();
+                   }
+                   catch (Exception e2) {
+                      e2.printStackTrace();
+                   }
+                }
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta
+            // una excepcion.
+            try{                   
+                if( null != fr ){  
+                    fr.close();    
+                }                 
+            }
+            catch (Exception e2){
+                e2.printStackTrace();
+            }
+        }
+        
+        //Elimino BDUsuarios2.txt
+        
+        archivo = new File ("Persistencia/BD/BDUsuarios2.txt");
+        
+        archivo.delete();
+        
+        //Elimino Usuaiors/n.txt
+        
+        this.borrarBDUsuario(n);
+        
+    }
+    
+    public void guardarUsuario(String n,int p,boolean b){
+        
+        this.borrarBDUsuario(n);
+        
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("Persistencia/BD/Usuarios/"+n+".txt",true);
+            pw = new PrintWriter(fichero);
+            pw.println(p);
+            if(b == true) pw.println("true");
+            else pw.println("false");
+ 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+           try {
+           // Nuevamente aprovechamos el finally para
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           }
+           catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    
+    public void borrarBDUsuario(String n){
+        
+        File archivo = null;
+        
+        boolean solucio = false;
+        
+        try {
+            archivo = new File ("Persistencia/BD/Usuarios/"+n+".txt");
+            archivo.delete();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
