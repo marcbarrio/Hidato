@@ -1,6 +1,6 @@
 /**
  *
- * @author Raúl Ibáñez Pérez
+ * @author Hamid Latif
  */
 package Presentacion;
 import java.util.*;
@@ -45,7 +45,7 @@ public class ControladorPresentacion {
                 if (opcion == 1) this.crearUsuario();
                 else if (opcion == 2) this.logIn();
                 else if (opcion == 4) salir = true;
-                else if(opcion == 5) CDominio.escribirBDUsuarios();
+                else if(opcion == 3) CDominio.escribirBDUsuarios();
                 //else if (opcion == 3) Partida.iniciar_invitado(); //controlador de partida
                 /*else {
                     introducirUsuario();
@@ -62,22 +62,22 @@ public class ControladorPresentacion {
 	int opcion;
 	System.out.println("############################\n");
         System.out.println("####   MENÚ PRINCIPAL   ####\n");
-        System.out.println("############################\n");
-        System.out.println("############################\n");
+        System.out.println("############################\n\n");
         if(this.usuarioInvitado) 
-            System.out.println("Usuario invitado\n");
+            System.out.println("Usuario invitado\n\n");
         else{
             System.out.println("Usuario: "+nombreUsuario+"\n");
-            System.out.println("Puntuación Total: "+puntuacionTotal+"\n");
+            System.out.println("Puntuación Total: "+puntuacionTotal+"\n\n");
         }
-        System.out.println("############################\n");
 	System.out.println("Escoje opción:\n");
-        System.out.println("1) Crear usuario\n");
-	System.out.println("2) Introducir usuario\n");
-	System.out.println("3) Escribir BD usuarios\n");
-        System.out.println("4) Salir del programa\n");
+        System.out.println("    1) Crear usuario\n");
+	System.out.println("    2) Introducir usuario\n");
+	System.out.println("    3) Escribir BD usuarios\n");
+        System.out.println("    4) Salir del programa\n\n");
+        System.out.print("      > opción:  ");
 	Scanner in = new Scanner(System.in);
 	opcion = in.nextInt(); //lectura de datos
+        System.out.print("\n");
 	return opcion;
     }
     
@@ -101,7 +101,7 @@ public class ControladorPresentacion {
         System.out.println("Introduce tu nombre de usuario:\n");
         
         while (!nombreCompletado && !salirOpcion) {
-            System.out.print("  > ");
+            System.out.print("  > usuario: ");
             Scanner in = new Scanner(System.in);
             nombreUsuario = in.nextLine();
             if (CDominio.nombreExistente(nombreUsuario) == false) {
@@ -132,7 +132,7 @@ public class ControladorPresentacion {
         System.out.println("\nNombre de usuario válido.\nIntroduce tu contraseña:\n");
         
         while (!contrasenaCompletada && !salirOpcion) {
-            System.out.print("  > ");
+            System.out.print("  > contraseña: ");
             Scanner in = new Scanner(System.in);
             nombreContrasena = in.nextLine();
             if (CDominio.contrasenaValida(nombreUsuario,nombreContrasena) == false) {
@@ -141,7 +141,7 @@ public class ControladorPresentacion {
                 if (!salirOpcion) {
                     while (opcionInvalida) {
                         System.out.println("¿Quieres intentarlo otra vez? (S/N)\n");
-                        System.out.print("  > ");
+                        System.out.print("  > (S/N): ");
                         in = new Scanner(System.in);
                         String salirString = in.nextLine();
                         if (salirString.equals("N") || salirString.equals("n")) {
@@ -189,7 +189,7 @@ public class ControladorPresentacion {
         System.out.println("Introduce un nombre de usuario: (6 o más caracteres)\n");
         
         while (!nombreCompletado && !salirOpcion) {
-            System.out.print("  > ");
+            System.out.print("  > usuario: ");
             Scanner in = new Scanner(System.in);
             nombreUsuario = in.nextLine();
             if (CDominio.nombreValido(nombreUsuario) == false) {
@@ -198,7 +198,7 @@ public class ControladorPresentacion {
                 if (!salirOpcion) {
                     while (opcionInvalida) {
                         System.out.println("¿Quieres elegir otro nombre? (S/N)\n");
-                        System.out.print("  > ");
+                        System.out.print("  > (S/N): ");
                         in = new Scanner(System.in);
                         String salirString = in.nextLine();
                         if (salirString.equals("N") || salirString.equals("n")) {
@@ -220,7 +220,7 @@ public class ControladorPresentacion {
         System.out.println("\nNombre de usuario válido, introduce una contraseña: (6 o más caracteres)\n");
         
         while (!contrasenaCompletada && !salirOpcion) {
-            System.out.print("  > ");
+            System.out.print("  > contraseña: ");
             Scanner in = new Scanner(System.in);
             nombreContrasena = in.nextLine();
             if (CDominio.contrasenaValida(nombreContrasena)) {
@@ -229,7 +229,7 @@ public class ControladorPresentacion {
                 if (!salirOpcion) {
                     while (opcionInvalida) {
                         System.out.println("¿Quieres elegir otra contraseña? (S/N)\n");
-                        System.out.print("  > ");
+                        System.out.print("  > (S/N): ");
                         in = new Scanner(System.in);
                         String salirString = in.nextLine();
                         if (salirString.equals("N") || salirString.equals("n")) {
