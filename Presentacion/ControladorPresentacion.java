@@ -16,6 +16,8 @@ public class ControladorPresentacion {
     private static int puntuacionTotal;
     private static Date fechaCreacion;
     
+    /*   CREADORES   */
+    
     /*
     PRE: -
     POST: La clase queda inicializada
@@ -27,16 +29,19 @@ public class ControladorPresentacion {
     POST: Inicialización por método Singleton (Eager). Se usa para evitar el error
         de llamar a una función no static desde el main (que es static)
     */
-    public static ControladorPresentacion getInstance() {
+    private static ControladorPresentacion getInstance() {
         return instance;
     }
+    
+    
+    /*   MENU PRINCIPAL   */
     
     /*
     PRE: -
     POST: Se ha inicializado el juego con el usuario introducido o cerrado el programa, a
         elección del usuario
     */
-    public void iniciar() {
+    private void iniciar() {
         
         while (!salir) {
             
@@ -101,9 +106,11 @@ public class ControladorPresentacion {
 	return opcion;
     }
     
+    /*   FUNCIONES   */
+    
     /*  PRE: -
-        POST: Se leen los datos del usuario (nombre y contraseña) y se validan,
-        si son correctos se inicia la partida con dicho usuario
+        POST: Se leen los datos del usuario (nombre y contraseña), se validan y
+        se loguea.
     */
     private void logIn() {
         
@@ -195,6 +202,18 @@ public class ControladorPresentacion {
         
     }
     
+    /*  PRE: -
+        POST: Se desloguea el usuario que estaba cargado.
+    */
+    private void logOut(){
+        usuarioInvitado = true;
+        CDominio.guardarDatosUsuario();
+    }
+    
+    /*  PRE: -
+        POST: Se leen los datos del usuario (nombre y contraseña), se validan, se creaun usuario nuevo y
+        se loguea.
+    */
     private void crearUsuario(){
         
         System.out.println("    ############################\n");
@@ -284,7 +303,8 @@ public class ControladorPresentacion {
         
     }
     
-    public void gestionUsuario(){
+    /*   MENU GENERAL DE GESTION DE USUARIO   */
+    private void gestionUsuario(){
         int opcion = 0;
         /*
         System.out.println("    ############################");
@@ -320,7 +340,8 @@ public class ControladorPresentacion {
         }
     }
     
-    public int menuUsuarioInvitado(int opcion){
+    /*   MENU DE GESTION DE USUARIO INVITADO   */
+    private int menuUsuarioInvitado(int opcion){
         System.out.println("    ############################");
         System.out.println("    #### MENÚ USUARIO GUEST ####");
         System.out.println("    ############################\n");
@@ -335,7 +356,8 @@ public class ControladorPresentacion {
         return opcion;
     }
     
-    public int menuUsuarioLogueado(int opcion){
+    /*   MENU DE GESTION DE USUARIO LOGUEADO   */
+    private int menuUsuarioLogueado(int opcion){
         System.out.println("    ###############################");
         System.out.println("    #### MENÚ USUARIO LOGUEADO ####");
         System.out.println("    ###############################\n");
@@ -354,10 +376,5 @@ public class ControladorPresentacion {
         }
         return opcion;
     }
-    
-    public void logOut(){
-        usuarioInvitado = true;
-        CDominio.guardarDatosUsuario();
-    }
-                
+                    
 }
