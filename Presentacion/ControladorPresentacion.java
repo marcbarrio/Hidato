@@ -29,7 +29,7 @@ public class ControladorPresentacion {
     POST: Inicialización por método Singleton (Eager). Se usa para evitar el error
         de llamar a una función no static desde el main (que es static)
     */
-    private static ControladorPresentacion getInstance() {
+    public static ControladorPresentacion getInstance() {
         return instance;
     }
     
@@ -41,7 +41,7 @@ public class ControladorPresentacion {
     POST: Se ha inicializado el juego con el usuario introducido o cerrado el programa, a
         elección del usuario
     */
-    private void iniciar() {
+    public void iniciar() {
         
         while (!salir) {
             
