@@ -25,6 +25,14 @@ public class ControladorDominio {
         POST: devuelve true si el nombre es válido y no existe y false en caso contrario.
     */
     public boolean nombreValido(String s){
+        int longitud = s.length();
+        int i;
+        for (i=0;i<longitud;++i){
+            char a = s.charAt(i);
+            if( a < 'a' || (a > 90 && a < 97) || a > 122 || a < 48 || a > 57 && a < 65){
+                return false;
+            }
+        }
         return (s.length() > 5 && (this.nombreExistente(s) == false));
     }
     
@@ -32,6 +40,14 @@ public class ControladorDominio {
         POST: Devuelve true si la contrasena cumple los requisitos y false si no.
     */
     public boolean contrasenaValida(String c){
+        int longitud = c.length();
+        int i;
+        for (i=0;i<longitud;++i){
+            char a = c.charAt(i);
+            if( a < 'a' || (a > 90 && a < 97) || a > 122 || a < 48 || a > 57 && a < 65){
+                return false;
+            }
+        }
         return (c.length() < 6);
     }
     
