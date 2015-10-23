@@ -16,7 +16,7 @@ public class ControladorPresentacion {
     private static int puntuacionTotal;
     private static Date fechaCreacion;
     
-    /*   CREADORES   */
+    /*   CREADORAS   */
     
     /*
     PRE: -
