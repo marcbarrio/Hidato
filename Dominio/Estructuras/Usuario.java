@@ -1,4 +1,5 @@
 package Dominio.Estructuras;
+import java.util.*;
 
 /**
  *
@@ -7,16 +8,20 @@ package Dominio.Estructuras;
 public class Usuario {
     private String nombre;
     private String contrasena;
-    private int puntuacionTotal;
     private boolean apareceRanking;
+    private Date fechaCreacion;
+   
     
     
-    public Usuario() {}
+    public Usuario() {
+        this.fechaCreacion = new Date();
+    }
     
     public Usuario(String n, String c) {
         this.nombre = n;
         this.contrasena = c;
         this.apareceRanking = true;
+        
     }
     
     public String getNombre(){
@@ -25,14 +30,6 @@ public class Usuario {
     
     public String getContrasena(){
         return this.contrasena;
-    }
-    
-    public int getPuntuacionTotal(){
-        return this.puntuacionTotal;
-    }
-    
-    public void setPuntuacionTotal(int p){
-        this.puntuacionTotal = p;
     }
     
     public void setApareceRanking(boolean b){
@@ -53,5 +50,13 @@ public class Usuario {
     
     public void toggleApareceRanking(){
         this.apareceRanking = !this.apareceRanking;
+    }
+    
+    public Date getFecha(){
+        return this.fechaCreacion;
+    }
+    
+    public void setFecha(Date f){
+        this.fechaCreacion = f;
     }
 }
