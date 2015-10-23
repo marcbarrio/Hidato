@@ -15,6 +15,20 @@ import java.text.ParsePosition;
  */
 public class ControladorDatosUsuario {
     
+    /*   CREADORAS   */
+    
+    /*  PRE: -
+        POST: Inicialización de la clase, que se deja vacía
+    */
+    public ControladorDatosUsuario() {
+        
+    }
+    
+    /*   CONSULTORAS   */
+    
+    /*  PRE: -
+        POST: devuelve true si s es un usuario que ya existe y false si no.
+    */
     public boolean nombreUsuarioExistente(String s){
         
         boolean encontrado = false;
@@ -56,36 +70,8 @@ public class ControladorDatosUsuario {
         return encontrado;
     }
     
-    public void crearUsuario(String n, String c){
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try
-        {
-            fichero = new FileWriter("Persistencia/BD/BDUsuarios.txt", true);
-            pw = new PrintWriter(fichero);
- 
-            pw.println(n);
-            pw.println(c);
- 
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-           try {
-           // Nuevamente aprovechamos el finally para
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero)
-              fichero.close();
-           }
-           catch (Exception e2) {
-              e2.printStackTrace();
-           }
-        }
-    }
-    
-    /* PRE: n es un nombre de usuario válido.
-    
+    /*  PRE: n es un nombre de usuario existente.
+        POST: devuelve true si c es la contraseña de usuario n y false si no lo es.
     */
     public boolean contrasenaValida(String n, String c){
         
@@ -132,8 +118,8 @@ public class ControladorDatosUsuario {
         return solucio;
     }
     
-    /* PRE: n es un nombre de usuario válido.
-    
+    /*  PRE: n es un nombre de usuario existente.
+        POST: devuelve la puntuacion del usuario con nombre n,
     */
     public int cargarPuntuacionUsuario(String n){
         
@@ -172,8 +158,8 @@ public class ControladorDatosUsuario {
         return solucio;
     }
     
-    /* PRE: n es un nombre de usuario válido.
-    
+    /*  PRE: n es un nombre de usuario existente.
+        POST: devuelve el boolean apareceRanking del usuario con nobre n.
     */
     public boolean cargarApareceRankingUsuario(String n){
         
@@ -213,6 +199,9 @@ public class ControladorDatosUsuario {
         return solucio;
     }
     
+    /*  PRE: n es un nombre de usuario existente.
+        POST: devuelve la fecha de creacion del usuario con nombre n.
+    */
     public Date cargarFechaUsuario(String n){
         Date f=null;
         String auxFecha;
@@ -255,8 +244,41 @@ public class ControladorDatosUsuario {
         return f;
     }
     
-    /* PRE: n es un nombre de usuario válido.
+    /*   MODIFICADORAS   */
     
+    /*  PRE: -
+        POST: crea un usuario con nombre n y contraseña c.
+    */
+    public void crearUsuario(String n, String c){
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("Persistencia/BD/BDUsuarios.txt", true);
+            pw = new PrintWriter(fichero);
+ 
+            pw.println(n);
+            pw.println(c);
+ 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+           try {
+           // Nuevamente aprovechamos el finally para
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           }
+           catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    
+    /*  PRE: n es un nombre de usuario existente.
+        POST: se borran todos los datos del usuario con nombre n.
     */
     public void borrarUsuario(String n){
         
@@ -412,6 +434,9 @@ public class ControladorDatosUsuario {
         
     }
     
+    /*  PRE: n es un nombre de usuario existente.
+        POST: guarda todos los datos en el usuario con nombre n.
+    */
     public void guardarUsuario(String n,int p,boolean b, Date d){
         
         this.borrarBDUsuario(n);
@@ -445,6 +470,9 @@ public class ControladorDatosUsuario {
         }
     }
     
+    /*  PRE: n es un nombre de usuario existente.
+        POST: se borra la bae de datos del usuario con nombre n.
+    */ 
     private void borrarBDUsuario(String n){
         
         File archivo = null;
