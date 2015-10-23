@@ -12,14 +12,14 @@ public class ControladorDominio {
     ControladorPersistencia CPersistencia = new ControladorPersistencia();
     UsuarioHidato usuario = new UsuarioHidato();
     
-    /*   CREADORES DE USUARIO   */
+    /*   CREADORAS DE USUARIO   */
     
     /*  PRE: -
         POST: La clase queda inicializada
     */
     public ControladorDominio() {}
     
-    /*   CONSULTORES DE USUARIO   */
+    /*   CONSULTORAS DE USUARIO   */
     
     /*  PRE: -
         POST: devuelve true si el nombre es válido y no existe y false en caso contrario.
@@ -70,7 +70,7 @@ public class ControladorDominio {
         return this.usuario.getApareceRanking();
     }
     
-    /*   MODIFICADORES DE USUARIO   */
+    /*   MODIFICADORAS DE USUARIO   */
     
     /*  PRE: n es un nombre de usuario válido (no repetido).
         POST: Se crea un usuario nuevo con nombre = n y contraseña = c.
