@@ -10,11 +10,11 @@ public class ControladorPresentacion {
     private static int opcion;
     private static boolean salir = false;
     private static final ControladorPresentacion instance = new ControladorPresentacion();
-    private static ControladorPartida CPartida = new ControladorPartida();
     private static ControladorDominio CDominio = new ControladorDominio();
     private static boolean usuarioInvitado = true;
     private static String nombreUsuario;
     private static int puntuacionTotal;
+    private static Date fechaCreacion;
     
     /*
     PRE: -
@@ -84,8 +84,9 @@ public class ControladorPresentacion {
             System.out.println("    Usuario: "+nombreUsuario+"\n");
             System.out.println("    Puntuación Total: "+puntuacionTotal+"\n");
             if (CDominio.getApareceRanking())
-                System.out.println("    Sí aparece en Ránkings\n\n");
-            else System.out.println("    No aparece en Ránkings\n\n");
+                System.out.println("    Sí aparece en Ránkings\n");
+            else System.out.println("    No aparece en Ránkings\n");
+            System.out.println("    Fecha Creación: "+fechaCreacion+"\n\n");
         }
 	System.out.println("    Escoje opción:\n\n");
         System.out.println("        1) Gestión de Usuario\n");
@@ -186,6 +187,7 @@ public class ControladorPresentacion {
             ControladorPresentacion.usuarioInvitado = false;
             ControladorPresentacion.nombreUsuario = nombreUsuario;
             ControladorPresentacion.puntuacionTotal = CDominio.getPuntuacionUsuario();
+            ControladorPresentacion.fechaCreacion = CDominio.getFechaCreacion();
         }
         else System.out.println("\n Usuario NO logueado.\n");
         
