@@ -17,17 +17,6 @@ public class ControladorDominio {
     */
     public ControladorDominio() {}
         
-    /*  PRE: -
-    POST: Se retorna true si eltablero es válido y falsosiel tablero es inválido
-    */
-    public boolean inciar_sesion(String nombre, String contrasena) {
-        return CPersistencia.iniciar_sesion(nombre, contrasena);
-    }
-    
-    public boolean nombreTableroValido(String s){
-        return CPersistencia.nombreTableroValido(s);
-    }
-    
     public boolean nombreValido(String s){
         return (s.length() > 5 && (CPersistencia.nombreUsuarioExistente(s) == false));
     }
